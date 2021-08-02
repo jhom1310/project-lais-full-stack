@@ -14,6 +14,7 @@ class UserRepository {
   }) async {
     UserLogin userLogin = UserLogin(email: email, password: password);
     Token token = await getToken(userLogin);
+
     User user =
         User(id: 0, email: email, access: token.access, refresh: token.refresh);
     return user;

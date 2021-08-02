@@ -9,7 +9,7 @@ export default new Vuex.Store({
     // refreshing the page
      refreshToken: localStorage.getItem('refresh_token') || null,
      user_id: localStorage.getItem('user_id') || null,
-     APIData: '' // received data from the backend API is stored here.
+     APIData: ''
   },
   getters: {
     loggedIn (state) {
@@ -36,20 +36,18 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    // run the below action to get a new access token on expiration
     refreshToken (context) {
       return new Promise((resolve, reject) => {
-        axiosBase.post('/api/token/refresh/', {
+        axiosBase.post('/api-token-refresh/', {
           refresh: context.state.refreshToken
-        }) // send the stored refresh token to the backend API
-          .then(response => { // if API sends back new access and refresh token update the store
-            console.log('New access successfully generated')
+        })
+          .then(response => {
             context.commit('updateAccess', response.data.access)
             resolve(response.data.access)
           })
           .catch(err => {
             console.log('error in refreshToken Task')
-            reject(err) // error generating new access and refresh token because refresh token has expired
+            reject(err)
           })
       })
     },
@@ -63,23 +61,9 @@ export default new Vuex.Store({
           date_of_birth: data.date_of_birth
         })
           .then(response => {
-            console.log({
-              email: data.email,
-              name: data.name,
-              password1: data.password1,
-              password2: data.password2,
-              date_of_birth: data.date_of_birth
-            })
             resolve(response)
           })
           .catch(error => {
-            console.log({
-              email: data.email,
-              name: data.name,
-              password1: data.password1,
-              password2: data.password2,
-              date_of_birth: data.date_of_birth
-            })
             reject(error)
           })
       })
@@ -87,7 +71,7 @@ export default new Vuex.Store({
     logoutUser (context) {
       if (context.getters.loggedIn) {
         return new Promise((resolve, reject) => {
-          axiosBase.post('/rest-auth/logout')
+          axiosBase.post('/rest-auth/logout/')
             .then(response => {
               localStorage.removeItem('access_token')
               localStorage.removeItem('refresh_token')
@@ -104,12 +88,10 @@ export default new Vuex.Store({
     },
     loginUser (context, credentials) {
       return new Promise((resolve, reject) => {
-        // send the username and password to the backend API:
         axiosBase.post('/api-token-auth/', {
           email: credentials.email,
           password: credentials.password
         })
-        // if successful update local storage:
           .then(response => {
             context.commit('updateLocalStorage', { access: response.data.access, refresh: response.data.refresh }) // store the access and refresh token in localstorage
             axiosBase.post('/rest-auth/login/', {

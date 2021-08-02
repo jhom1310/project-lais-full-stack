@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from django.utils.dateparse import parse_datetime
+
+from appusers.models import CustomUser
+from core import settings
 from vacinas.models import Local, Groups, Scheduling
 
 
@@ -14,13 +17,14 @@ class GroupsSerializer(serializers.ModelSerializer):
         exclude = []
 
 class SchedulingSerializer(serializers.ModelSerializer):
-    status = serializers.SerializerMethodField()
-    local = serializers.StringRelatedField()
-    user = serializers.StringRelatedField()
-    groups = serializers.StringRelatedField()
+    local = serializers.SlugRelatedField(
+        slug_field='nom_estab',
+        queryset=Local.objects.all()
+     )
+    groups = serializers.SlugRelatedField(
+        slug_field='name',
+        queryset=Groups.objects.all()
+     )
     class Meta:
         model = Scheduling
         fields = ['local', 'user','status', 'groups', 'datatime', 'age']
-
-    def get_status(self, obj):
-        return obj.get_status_display()

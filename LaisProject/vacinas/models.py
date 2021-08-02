@@ -28,7 +28,7 @@ class Scheduling(models.Model):
         (2, 'Cancelado'),
         (3, 'Vacinado')
     )
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     datatime = models.DateTimeField()
     local = models.ForeignKey(Local, on_delete=models.CASCADE)
     groups = models.ForeignKey(Groups, on_delete=models.CASCADE)

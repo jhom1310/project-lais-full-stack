@@ -42,12 +42,20 @@ class Agendamentos {
 
   factory Agendamentos.fromJson(Map<String, dynamic> json) {
     var datatime = DateTime.parse(json['datatime']);
+    var status;
+    if (json['status'] == 1) {
+      status = 'Agendado';
+    } else if (json['status'] == 2) {
+      status = 'Cancelado';
+    } else {
+      status = 'Vacinado';
+    }
     //new DateFormat("yyyy-MM-dd", "en_US").parse(json['datatime']);
     return Agendamentos(
         id: json['id'],
         datatime: datatime,
         age: json['age'],
-        status: json['status'],
+        status: status,
         user: json['user'],
         local: json['local'],
         groups: json['groups']);

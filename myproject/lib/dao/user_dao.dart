@@ -16,6 +16,12 @@ class UserDao {
     return result;
   }
 
+  Future<dynamic> getUser() async {
+    final db = await dbProvider.database;
+    var result = db.query(userTable, columns: ['email']);
+    return result;
+  }
+
   Future<dynamic> getTokenUserRefresh() async {
     final db = await dbProvider.database;
     var result = db.query(userTable, columns: ['refresh']);

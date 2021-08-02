@@ -2,11 +2,7 @@
   <div class="home">
     <NavBar></NavBar>
     <div class="bod">
-      <h1>Welcome to Hardcore Mods</h1>
-      <h2>Wo are we?</h2>
-      <h3>We specialise in building free game mods for ETS2 and ATS to make your gaming experience fun!</h3>
-      <h2>What mods have we built so far?</h2>
-      <h3>Wanna help us in any way?. We would love to have extra additions to our team. Send us a message and we will get back to you soon</h3>
+      <h1>Sistema de Agendamentos LAIS</h1>
       </div>
   </div>
 </template>

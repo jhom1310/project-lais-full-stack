@@ -5,6 +5,7 @@ import login from './views/Login'
 import register from './views/Register'
 import locais from './views/Locais'
 import logout from './views/Logout'
+import agendar from './views/Agendar'
 
 Vue.use(Router)
 
@@ -37,6 +38,14 @@ export default new Router({
       path: '/locais',
       name: 'locais',
       component: locais,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/agendar',
+      name: 'agendar',
+      component: agendar,
       meta: {
         requiresAuth: true
       }

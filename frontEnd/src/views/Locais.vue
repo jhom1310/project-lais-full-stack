@@ -11,7 +11,6 @@
           <h3 class="card-title">{{mod.nom_estab}}</h3>
           <p class="card-text">ENDEREÇO: {{mod.dsc_endereco}}</p>
           <p class="card-text">BAIRRO: {{mod.dsc_bairro}}</p>
-          <button>AGENDAR</button>
         </div>
         <hr>
       </div>
@@ -26,7 +25,7 @@
    import axios from 'axios'
   export default {
     name: 'Locais',
-    onIdle () { // dispatch logoutUser if no activity detected
+    onIdle () {
       this.$store.dispatch('logoutUser')
         .then(response => {
           this.$router.push('/login')
@@ -40,7 +39,7 @@
     components: {
       NavBar
     },
-    computed: mapState(['APIData']), // get APIData from store.state.
+    computed: mapState(['APIData']),
     created () {
         axios.get('http://ipinfo.io?token=51f53271aa0776')
         .then((response) => {

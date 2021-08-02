@@ -23,7 +23,7 @@ class _MyAppState extends State<Exemplo> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Fetch Data Example',
+      title: 'Meu Agendamento',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -37,8 +37,10 @@ class _MyAppState extends State<Exemplo> {
               future: futureAlbum,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return Text(
-                      '${snapshot.data!.local}\n${snapshot.data!.datatime}\n');
+                  return Text('LOCAL: ${snapshot.data!.local}\n' +
+                      'DATA E HORA: ${snapshot.data!.datatime}\n' +
+                      'STATUS: ${snapshot.data!.status}' +
+                      'das');
                 } else if (snapshot.hasError) {
                   return Text('${snapshot.error}');
                 }
