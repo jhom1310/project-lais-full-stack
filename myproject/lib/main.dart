@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myproject/home/agendamentos_page.dart';
 import 'package:myproject/model/agendamentos_model.dart';
 import 'package:myproject/repository/user_repository.dart';
 

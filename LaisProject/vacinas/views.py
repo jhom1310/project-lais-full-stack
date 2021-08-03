@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from rest_framework import viewsets, status
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from vacinas.models import *
 from vacinas.serializers import *
@@ -10,7 +10,17 @@ from vacinas.serializers import *
 class LocalViewSet(viewsets.ModelViewSet):
     queryset = Local.objects.all()
     serializer_class = LocalSerializer
-    permission_classes = [IsAdminUser]
+    #permission_classes = [IsAdminUser]
+
+    def get_permissions(self):
+        """Set custom permissions for each action."""
+        if self.action in ['list']:
+            self.permission_classes = [IsAuthenticated, ]
+        elif self.action in ['create', 'update', 'partial_update', 'destroy', ]:
+            self.permission_classes = [IsAdminUser, ]
+        return super().get_permissions()
+
+
 
     def get_queryset(self):
         queryset = Local.objects.all()
@@ -23,7 +33,15 @@ class LocalViewSet(viewsets.ModelViewSet):
 class GroupsViewSet(viewsets.ModelViewSet):
     queryset = Groups.objects.all()
     serializer_class = GroupsSerializer
-    permission_classes = [IsAdminUser]
+    #permission_classes = [IsAdminUser]
+
+    def get_permissions(self):
+        """Set custom permissions for each action."""
+        if self.action in ['list']:
+            self.permission_classes = [IsAuthenticated, ]
+        elif self.action in ['create','update', 'partial_update', 'destroy',]:
+            self.permission_classes = [IsAdminUser, ]
+        return super().get_permissions()
 
 class SchedulingViewSet(viewsets.ModelViewSet):
     queryset = Scheduling.objects.all()
