@@ -9,10 +9,10 @@ import 'package:myproject/login/bloc/login_bloc.dart';
 final _base = "http://192.168.1.7:8000";
 final _tokenEndpoint = "/api-token-auth/";
 final _agendamentosEndpoint = "/api/vacinas/agendamentos?user=";
-final _agendamentosURL = _base + _agendamentosEndpoint;
-final _tokenURL = _base + _tokenEndpoint;
-final _tokenRrefresh = "/api-token-refresh/";
+final _tokenRrefresh = _base + "/api-token-refresh/";
 final _idURL = _base + '/rest-auth/login/';
+final _tokenURL = _base + _tokenEndpoint;
+final _agendamentosURL = _base + _agendamentosEndpoint;
 
 Future<Token> getToken(UserLogin userLogin) async {
   print(_tokenURL);
@@ -24,7 +24,16 @@ Future<Token> getToken(UserLogin userLogin) async {
     body: jsonEncode(userLogin.toDatabaseJson()),
   );
   if (response.statusCode == 200) {
-    return Token.fromJson(json.decode(response.body));
+    var token = json.decode(response.body);
+    print(token['refresh']);
+    final http.Response resp =
+        await http.post(_tokenRrefresh, body: {'refresh': token['refresh']});
+    if (resp.statusCode == 200) {
+      var newaccess = json.decode(resp.body);
+      token['access'] = newaccess['access'];
+      return Token.fromJson(token);
+    }
+    return Token.fromJson(token);
   } else {
     print(json.decode(response.body).toString());
     throw Exception(json.decode(response.body));
