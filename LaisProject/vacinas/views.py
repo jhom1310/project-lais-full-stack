@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from rest_framework import viewsets, status
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from vacinas.models import *
 from vacinas.serializers import *
@@ -9,6 +10,7 @@ from vacinas.serializers import *
 class LocalViewSet(viewsets.ModelViewSet):
     queryset = Local.objects.all()
     serializer_class = LocalSerializer
+    permission_classes = [IsAdminUser]
 
     def get_queryset(self):
         queryset = Local.objects.all()
@@ -21,6 +23,7 @@ class LocalViewSet(viewsets.ModelViewSet):
 class GroupsViewSet(viewsets.ModelViewSet):
     queryset = Groups.objects.all()
     serializer_class = GroupsSerializer
+    permission_classes = [IsAdminUser]
 
 class SchedulingViewSet(viewsets.ModelViewSet):
     queryset = Scheduling.objects.all()
@@ -32,7 +35,7 @@ class SchedulingViewSet(viewsets.ModelViewSet):
         user_id = self.request.query_params.get('user')
         if user_id is not None:
             queryset = queryset.filter(user__email=user_id)
-        elif status is not  None:
+        elif status is not None:
             queryset = queryset.filter(status=status)
         return queryset
 

@@ -12,14 +12,6 @@ class Exemplo extends StatefulWidget {
 }
 
 class _MyAppState extends State<Exemplo> {
-  late Future<Agendamentos> futureAlbum;
-
-  @override
-  void initState() {
-    super.initState();
-    futureAlbum = getAgendamentos();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,22 +25,6 @@ class _MyAppState extends State<Exemplo> {
         ),
         body: Column(
           children: [
-            FutureBuilder<Agendamentos>(
-              future: futureAlbum,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Text('LOCAL: ${snapshot.data!.local}\n' +
-                      'DATA E HORA: ${snapshot.data!.datatime}\n' +
-                      'STATUS: ${snapshot.data!.status}' +
-                      'das');
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-
-                // By default, show a loading spinner.
-                return const CircularProgressIndicator();
-              },
-            ),
             Padding(
               padding: EdgeInsets.fromLTRB(34.0, 20.0, 0.0, 0.0),
               child: Container(

@@ -13,8 +13,6 @@ import 'package:myproject/common/common.dart';
 
 void main() {
   final userRepository = UserRepository();
-  late Future<Agendamentos> futureAgendamentos;
-
   runApp(BlocProvider<AuthenticationBloc>(
     create: (context) {
       return AuthenticationBloc(userRepository: userRepository)
@@ -44,7 +42,7 @@ class App extends StatelessWidget {
             return SplashPage();
           }
           if (state is AuthenticationAuthenticated) {
-            return Exemplo();
+            return HomePage();
           }
           if (state is AuthenticationUnauthenticated) {
             return LoginPage(

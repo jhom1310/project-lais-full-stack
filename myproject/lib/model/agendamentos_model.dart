@@ -1,74 +1,48 @@
-import 'package:intl/intl.dart';
+// To parse this JSON data, do
+//
+//     final agendadamentos = agendadamentosFromJson(jsonString);
 
-class Agendamentos {
-  int id;
-  DateTime datatime;
-  int age;
-  String status;
-  String user;
-  String local;
-  String groups;
+import 'dart:convert';
 
-  Agendamentos({
-    required this.id,
+List<Agendadamentos> agendadamentosFromJson(String str) =>
+    List<Agendadamentos>.from(
+        json.decode(str).map((x) => Agendadamentos.fromJson(x)));
+
+String agendadamentosToJson(List<Agendadamentos> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class Agendadamentos {
+  Agendadamentos({
+    required this.local,
+    required this.user,
+    required this.status,
+    required this.groups,
     required this.datatime,
     required this.age,
-    required this.status,
-    required this.user,
-    required this.local,
-    required this.groups,
   });
 
-  factory Agendamentos.fromDatabaseJson(Map<String, dynamic> data) =>
-      Agendamentos(
-        id: data['id'],
-        datatime: data['datatime'],
-        age: data['age'],
-        status: data['status'],
-        user: data['user'],
-        local: data['local'],
-        groups: data['groups'],
+  String local;
+  int user;
+  int status;
+  String groups;
+  DateTime datatime;
+  int age;
+
+  factory Agendadamentos.fromJson(Map<String, dynamic> json) => Agendadamentos(
+        local: json["local"],
+        user: json["user"],
+        status: json["status"],
+        groups: json["groups"],
+        datatime: DateTime.parse(json["datatime"]),
+        age: json["age"],
       );
 
-  Map<String, dynamic> toDatabaseJson() => {
-        "id": this.id,
-        "datatime": this.datatime,
-        "age": this.age,
-        "status": this.status,
-        "user": this.user,
-        "local": this.local,
-        "groups": this.groups,
+  Map<String, dynamic> toJson() => {
+        "local": local,
+        "user": user,
+        "status": status,
+        "groups": groups,
+        "datatime": datatime.toIso8601String(),
+        "age": age,
       };
-
-  factory Agendamentos.fromJson(Map<String, dynamic> json) {
-    var datatime = DateTime.parse(json['datatime']);
-    var status;
-    if (json['status'] == 1) {
-      status = 'Agendado';
-    } else if (json['status'] == 2) {
-      status = 'Cancelado';
-    } else {
-      status = 'Vacinado';
-    }
-    //new DateFormat("yyyy-MM-dd", "en_US").parse(json['datatime']);
-    return Agendamentos(
-        id: json['id'],
-        datatime: datatime,
-        age: json['age'],
-        status: status,
-        user: json['user'],
-        local: json['local'],
-        groups: json['groups']);
-  }
-
-  factory Agendamentos.fromJsonList(Map<String, dynamic> json) {
-    return Agendamentos(
-        id: json['id'],
-        datatime: json['datatime'],
-        age: json['age'],
-        status: json['status'],
-        user: json['user'],
-        local: json['local'],
-        groups: json['groups']);
-  }
 }

@@ -50,7 +50,7 @@ Future getId(UserLogin userLogin) async {
   }
 }
 
-Future<Agendamentos> getAgendamentos() async {
+Future<List<Agendadamentos>> getAgendamentos() async {
   final tokenUser = await UserDao().getTokenUser();
   final userAux = await UserDao().getUser();
   print(tokenUser[0]['access']);
@@ -63,11 +63,12 @@ Future<Agendamentos> getAgendamentos() async {
     },
   );
   if (response.statusCode == 200) {
-    final aux = json.decode(response.body);
-    return Agendamentos.fromJson(aux);
+    var list = json.decode(response.body) as List;
+    List<Agendadamentos> agendamentos =
+        list.map((e) => Agendadamentos.fromJson(e)).toList();
+    return agendamentos;
   } else {
     print(json.decode(response.body).toString());
-
     throw Exception(json.decode(response.body));
   }
 }
