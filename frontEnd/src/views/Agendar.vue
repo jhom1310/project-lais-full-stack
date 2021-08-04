@@ -108,7 +108,7 @@
           datatime: this.datatime,
           age: this.age
         })
-        axios.post('http://192.168.1.7:8000/api/vacinas/agendamentos/', {
+        axios.post('http://192.168.1.5:8000/api/vacinas/agendamentos/', {
           local: this.local_select.nom_estab,
           user: this.user_id,
           status: 1,
@@ -132,28 +132,51 @@
 </script>
 
 <style scoped>
-  @import url(https://fonts.googleapis.com/css?family=Quicksand) ;
-  .locais {
-    margin: 0;
-    padding: 0;
-  }
-  .bod {
-    background-color: #606366;
-    width: 100%;
-    text-align: center;
-    color: white;
-    font-family: 'Quicksand', sans-serif;
-    padding: 0;
-    margin: 78px auto;
-  }
-  .bod h1 {
-    background-color: #292b2d;
-    padding: 40px 0 40px 0;
-    font-size: 32px;
-    margin: 0;
-  }
-  .bod h2 {
-    margin: 0;
-    padding: 10px 0 10px 0;
-  }
+    Body {
+  font-family: Calibri, Helvetica, sans-serif;
+  background-color: rgb(94, 94, 94);
+  padding: 78px ;
+  margin: 5%;
+}
+button {
+       background-color: #520202;
+       width: 100%;
+        color: rgb(255, 255, 255);
+        padding: 15px;
+        margin: 10px 0px;
+        border: none;
+        cursor: pointer;
+         }
+ form {
+        border: 3px solid #f1f1f1;
+    }
+ input[type=text], input[type=password], input[type=email], input[type=date], input[type='datetime-local'], input[type='number'] {
+        width: 100%;
+        margin: 8px 0;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 2px solid #520202;
+        box-sizing: border-box;
+    }
+ select {
+        width: 100%;
+        margin: 8px 0;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 2px solid #520202;
+        box-sizing: border-box;
+    }
+ button:hover {
+        opacity: 0.7;
+    }
+  .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        margin: 10px 5px;
+    }
+
+ .container {
+        padding: 70px;
+        background-color: rgb(88, 88, 88);
+    }
 </style>

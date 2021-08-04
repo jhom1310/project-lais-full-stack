@@ -57,9 +57,9 @@
     border-radius: 7px;
   }
   .nav-bar ul li a:hover {
-    background-color: #a72a64;
+    background-color: #520202;
   }
   .router-link-active {
-    background-color: #a72a64
+    background-color: #520202
   }
 </style>
