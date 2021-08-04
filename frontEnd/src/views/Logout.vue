@@ -1,5 +1,6 @@
 <template>
   <div class="log">
+    <h1>Até logo</h1>
   </div>
 </template>
 
