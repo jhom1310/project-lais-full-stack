@@ -6,7 +6,7 @@ import 'package:myproject/model/api_model.dart';
 import 'package:myproject/dao/user_dao.dart';
 import 'package:myproject/login/bloc/login_bloc.dart';
 
-final _base = "http://192.168.1.7:8000";
+final _base = "http://192.168.1.6:8000";
 final _tokenEndpoint = "/api-token-auth/";
 final _agendamentosEndpoint = "/api/vacinas/agendamentos?user=";
 final _tokenRrefresh = _base + "/api-token-refresh/";

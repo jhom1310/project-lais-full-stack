@@ -35,7 +35,7 @@
 
 <script>
   import NavBar from '../components/Navbar'
-  import { getAPI } from '../api/axios-base'
+  import { axiosBase, getAPI } from '../api/axios-base'
   import { mapState } from 'vuex'
    import axios from 'axios'
   export default {
@@ -108,7 +108,7 @@
           datatime: this.datatime,
           age: this.age
         })
-        axios.post('http://192.168.1.5:8000/api/vacinas/agendamentos/', {
+        axiosBase.post('/api/vacinas/agendamentos/', {
           local: this.local_select.nom_estab,
           user: this.user_id,
           status: 1,
